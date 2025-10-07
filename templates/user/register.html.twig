@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex align-items-center py-4 bg-body-tertiary">
+		<main class="form-signin m-auto">
+			<form method="post">
+				<div class="d-flex align-items-center mb-4">
+					<img class="p-0" src="assets/images/logotipo.svg" width="72" height="57">
+
+					<h1 class="h3 fw-normal my-0 ms-2">Sistema Estoque</h1>
+				</div>
+
+				<div class="form-floating mb-2">
+					<label for="name">Nome</label>
+					<input type="text" name="_name" id="name" class="form-control" required autofocus>
+				</div>
+
+				<div class="form-floating mb-2">
+					<label for="email">Email</label>
+					<input type="email" name="_email" id="email" class="form-control" autocomplete="email" required autofocus>
+				</div>
+
+				<div class="form-floating mb-2">
+					<label for="password">Password</label>
+					<input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+					<input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+				</div>
+
+				<button class="btn btn-primary w-100 py-2" type="submit">
+					Sign in
+				</button>
+				<p class="mt-2">Já tem uma conta?<a href="#" style="text-decoration: none">
+						Fazer login!</a>
+				</p>
+				<p class="mt-5 mb-3 text-body-secondary text-center">&copy; MS Code 2025</p>
+			</form>
+		</main>
+	</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex align-items-center py-4 bg-body-tertiary">
+		<main class="form-signin m-auto">
+			<form method="post">
+				{% if error %}
+					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
+
+				{% if app.user %}
+					<div class="mb-3">
+						You are logged in as
+						{{ app.user.userIdentifier }},
+						<a href="{{ path('app_logout') }}">Logout</a>
+					</div>
+				{% endif %}
+
+				<div class="d-flex align-items-center mb-4">
+					<img class="p-0" src="assets/images/logotipo.svg" width="72" height="57">
+
+					<h1 class="h3 fw-normal my-0 ms-2">Sistema Estoque</h1>
+				</div>
+
+				<div class="form-floating mb-2">
+					<label for="username">Email</label>
+					<input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+				</div>
+
+				<div class="form-floating mb-2">
+					<label for="password">Password</label>
+					<input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+					<input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+					<button class="btn btn-primary w-100 py-2 mt-2" type="submit">
+						Register
+					</button>
+				</div>
+
+				<p class="mt-2">Não tem uma conta?<a href="#" style="text-decoration: none">
+						Criar uma conta!</a>
+				</p>
+				<p class="mt-5 mb-3 text-body-secondary text-center">&copy; MS Code 2025</p>
+			</form>
+		</main>
+	</div>
+{% endblock %}
