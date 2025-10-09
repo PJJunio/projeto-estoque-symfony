@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<main>
+		<div class="container py-5">
+			<div class="mb-4">
+				<h1>Nova categoria</h1>
+			</div>
+
+			<div class="w-50 mt-2">
+				<form method="POST" action="/category/new">
+					<div class="mb-3">
+						<label for="nome" class="form-label">Nome</label>
+						<input type="text" class="form-control" id="nome" name="nome">
+					</div>
+					<button type="submit" class="btn btn-primary">Criar</button>
+				</form>
+			</div>
+		</div>
+	</main>
+{% endblock %}
