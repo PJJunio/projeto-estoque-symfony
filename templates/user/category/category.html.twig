@@ -3,6 +3,7 @@
 {% block body %}
 	<main>
 		<div class="container py-5">
+		{% include "messages.html.twig" %}
 			<div class="mb-4 d-flex flex-row justify-content-between">
 				<h1>Categorias</h1>
 				<div>
@@ -20,24 +21,28 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th scope="row"></th>
-						<td></td>
-						<td class="col-1 text-align-right">
-							<a class="btn btn-secondary btn-sm" title="Editar">
-								<i class="bi bi-pencil"></i>
-							</a>
-							<a class="btn btn-danger btn-sm" title="Excluir" title="Excluir" href='category?delete=<?= $categoria[' id'] ?>'>
-								<i class="bi bi-trash"></i>
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="7" class="text-center">Nenhuma categoria encontrado.</td>
-					</tr>
+					{% if categories %}
+						{% for categories in categories %}
+							<tr>
+								<th scope="row">{{ categories.id }}</th>
+								<td>{{ categories.name }}</td>
+								<td class="col-1 text-align-right">
+									<a class="btn btn-secondary btn-sm" title="Editar">
+										<i class="bi bi-pencil"></i>
+									</a>
+									<a class="btn btn-danger btn-sm" title="Excluir" title="Excluir" href="{{ path('app_category_delete', {id:categories.id}) }}">
+										<i class="bi bi-trash"></i>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					{% else %}
+						<tr>
+							<td colspan="7" class="text-center">Nenhuma categoria encontrado.</td>
+						</tr>
+					{% endif %}
 				</tbody>
-
-			</table>
-		</div>
-	</main>
-{% endblock %}
+			</tbody>
+		</table>
+	</div>
+</main>{% endblock %}

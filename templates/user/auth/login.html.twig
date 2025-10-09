@@ -11,14 +11,6 @@
 					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 				{% endif %}
 
-				{% if app.user %}
-					<div class="mb-3">
-						You are logged in as
-						{{ app.user.userIdentifier }},
-						<a href="{{ path('app_logout') }}">Logout</a>
-					</div>
-				{% endif %}
-
 				<div class="d-flex align-items-center mb-4">
 					<img class="p-0" src="./assets/images/logotipo.svg" width="72" height="57">
 
