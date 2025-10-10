@@ -29,18 +29,32 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     public function deleteCategory($id)
-{
-    $category = $this->findOneBy(['id' => $id]);
+    {
+        $category = $this->findOneBy(['id' => $id]);
 
-    if ($category) {
-        $this->getEntityManager()->remove($category);
-        $this->getEntityManager()->flush();
+        if ($category) {
+            $this->getEntityManager()->remove($category);
+            $this->getEntityManager()->flush();
 
-        return true;
+            return true;
+        }
+
+        return false;
     }
 
-    return false;
-}   
+    public function editCategory($id, $name)
+    {
+        $category = $this->find($id);
+
+        if($category) {
+            $category->setName($name);
+            $this->getEntityManager()->flush();
+
+            return true;
+        }
+
+        return false;
+    }
 
     //    /**
     //     * @return Category[] Returns an array of Category objects

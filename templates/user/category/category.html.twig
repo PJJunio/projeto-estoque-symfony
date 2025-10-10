@@ -27,7 +27,7 @@
 								<th scope="row">{{ categories.id }}</th>
 								<td>{{ categories.name }}</td>
 								<td class="col-1 text-align-right">
-									<a class="btn btn-secondary btn-sm" title="Editar">
+									<a class="btn btn-secondary btn-sm" title="Editar" href="{{ path('app_category_edit_view', {id:categories.id}) }}">
 										<i class="bi bi-pencil"></i>
 									</a>
 									<a class="btn btn-danger btn-sm" title="Excluir" title="Excluir" href="{{ path('app_category_delete', {id:categories.id}) }}">

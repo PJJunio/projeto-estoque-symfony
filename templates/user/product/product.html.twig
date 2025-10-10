@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<main>
+		<div class="container py-5">
+			<div class="mb-4">
+				<h1>Novo produto</h1>
+			</div>
+
+			<div class="w-50 mt-2">
+				<form method="POST" action="/product/new">
+					<div class="mb-3">
+						<label for="nome" class="form-label">Nome:</label>
+						<input type="text" class="form-control" id="nome" name="nome" value="">
+					</div>
+					<div class="mb-3">
+						<label for="descricao" class="form-label">Descrição:</label>
+						<textarea class="form-control" id="descricao" name="descricao" style="resize:none;" rows="5"></textarea>
+					</div>
+
+
+					<div class="row">
+						<div class="mb-3 col-4">
+							<label for="categoriaId" class="form-label">Categoria:</label>
+							<select class="form-select" id="categoriaId" name="categoriaId">
+								<option selected disabled>Selecione...</option>
+							</select>
+						</div>
+						<div class="mb-3 col-4">
+							<label for="quantidade" class="form-label">Quantidade:</label>
+							<input type="number" class="form-control" id="quantidade" name="quantidade" value="">
+						</div>
+						<div class="mb-3 col-4">
+							<label for="valor" class="form-label">Valor:</label>
+							<input type="text" class="form-control" id="valor" name="valor" value="">
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</form>
+			</div>
+		</div>
+	</main>
+{% endblock %}

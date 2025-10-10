@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<main>
+		<div class="container py-5">
+			<div class="mb-4">
+				<h1>Nova categoria</h1>
+			</div>
+
+			<div class="w-50 mt-2">
+			{% include "messages.html.twig" %}
+				<form method="POST" action="{{ path('app_category_edit') }}">
+					<div class="mb-3">
+						<label for="nome" class="form-label">Nome</label>
+						<input type="text" class="form-control" id="nome" name="nome" value="{{ categories.name }}">
+						<input type="hidden" value="{{ categories.id }}" name="id">
+					</div>
+					<button type="submit" class="btn btn-primary">Editar</button>
+				</form>
+			</div>
+		</div>
+	</main>
+{% endblock %}

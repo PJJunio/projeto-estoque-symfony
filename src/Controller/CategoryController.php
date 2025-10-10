@@ -54,14 +54,42 @@ class CategoryController extends AbstractController
     }
 
     #[Route(path: '/app/category/delete/{id}', name: 'app_category_delete', methods: 'GET')]
-public function deleteCategory($id)
-{
-    if($this->categoryRepository->deleteCategory($id)){
-        $this->addFlash('success', 'Categoria deletada com sucesso!');
+    public function deleteCategory($id)
+    {
+        if ($this->categoryRepository->deleteCategory($id)) {
+            $this->addFlash('success', 'Categoria deletada com sucesso!');
+            return $this->redirectToRoute('app_category');
+        }
+
+        $this->addFlash('error', 'Categoria não encontrada!');
         return $this->redirectToRoute('app_category');
     }
 
-    $this->addFlash('error', 'Categoria não encontrada!');
-    return $this->redirectToRoute('app_category');
-}   
+    #[Route(path: '/app/category/edit/{id}', name: 'app_category_edit_view', methods: 'GET')]
+    public function editCategoryView($id)
+    {
+        return $this->render('user/category/edit_category.html.twig', ['categories' => $this->categoryRepository->findOneBy(['id' => $id])]);
+    }
+
+    #[Route(path: '/app/category/edit', name: 'app_category_edit', methods: 'POST')]
+    public function editCategory(Request $request)
+    {
+        $categoryName = $request->request->get('nome');
+        $categoryId = $request->request->get('id');
+
+        if ($this->categoryRepository->findBy(['name' => $categoryName])) {
+            $this->addFlash('danger', 'Categoria já existe!');
+
+            return $this->redirectToRoute('app_category_edit_view');
+        }
+        
+        if ($this->categoryRepository->editCategory($categoryId, $categoryName)) {
+            $this->addFlash('success', 'Categoria editada com sucesso!');
+
+            return $this->redirectToRoute('app_category');
+
+        }
+
+        return new Response();
+    }
 }
