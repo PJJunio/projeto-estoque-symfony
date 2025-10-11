@@ -22,8 +22,8 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?Category $category = null;
 
-    #[ORM\Column]
-    private ?int $value = null;
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    private ?string $value = null;
 
     #[ORM\Column]
     private ?int $amount = null;
@@ -76,15 +76,14 @@ class Product
         return $this;
     }
 
-    public function getValue(): ?int
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
-    public function setValue(int $value): static
+    public function setValue(string $value): self
     {
         $this->value = $value;
-
         return $this;
     }
 

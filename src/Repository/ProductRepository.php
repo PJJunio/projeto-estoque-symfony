@@ -16,6 +16,39 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function createProduct($name, $description, $category, $amount, $value)
+    {
+        $product = new Product();
+
+        $product->setName($name);
+        $product->setDescription($description);
+        $product->setCategory($category);
+        $product->setAmount($amount);
+        $product->setValue($value);
+
+        $product->setValue($this->convertBrazilianCurrency($value));
+
+        $this->getEntityManager()->persist($product);
+        $this->getEntityManager()->flush();
+
+        return true;
+    }
+
+    private function convertBrazilianCurrency(?string $value): string
+    {
+        if (empty($value)) {
+            return '0.00';
+        }
+
+        $value = trim($value);
+        
+        $value = str_replace('.', '', $value);
+        
+        $value = str_replace(',', '.', $value);
+        
+        return number_format((float) $value, 2, '.', '');
+    }
+
     //    /**
     //     * @return Product[] Returns an array of Product objects
     //     */

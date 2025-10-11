@@ -8,7 +8,8 @@
 			</div>
 
 			<div class="w-50 mt-2">
-				<form method="POST" action="/product/new">
+				{% include "messages.html.twig" %}
+				<form method="POST" action="{{ path('app_product_new')}}">
 					<div class="mb-3">
 						<label for="nome" class="form-label">Nome:</label>
 						<input type="text" class="form-control" id="nome" name="nome" value="">
@@ -24,6 +25,9 @@
 							<label for="categoriaId" class="form-label">Categoria:</label>
 							<select class="form-select" id="categoriaId" name="categoriaId">
 								<option selected disabled>Selecione...</option>
+								{% for category in categories %}
+									<option value="{{ category.id }}">{{ category.name }}</option>
+								{% endfor %}
 							</select>
 						</div>
 						<div class="mb-3 col-4">
