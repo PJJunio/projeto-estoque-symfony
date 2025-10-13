@@ -49,6 +49,40 @@ class ProductRepository extends ServiceEntityRepository
         return number_format((float) $value, 2, '.', '');
     }
 
+    public function editProduct($id, $name, $description, $category, $amount, $value)
+    {
+        $product = $this->find($id);
+
+        if($product) {
+            $product->setName($name);
+            $product->setDescription($description);
+            $product->setCategory($category);
+            $product->setAmount($amount);
+            $product->setValue($value);
+
+            $this->getEntityManager()->persist($product);
+            $this->getEntityManager()->flush();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function deleteProduct($id)
+    {
+        $product = $this->findOneBy(['id' => $id]);
+
+        if($product){
+            $this->getEntityManager()->remove($product);
+            $this->getEntityManager()->flush();
+
+            return true;
+        }
+
+        return false;
+    }
+
     //    /**
     //     * @return Product[] Returns an array of Product objects
     //     */

@@ -5,7 +5,7 @@
 
 {% block body %}
 	<main>
-	{% include "messages.html.twig" %}
+		{% include "messages.html.twig" %}
 		<div class="container py-5">
 			<h1>Bem vindo!</h1>
 			<div class="container py-5">
@@ -27,31 +27,36 @@
 							<th scope="col">Descrição</th>
 							<th scope="col">Categoria</th>
 							<th scope="col">Valor</th>
-							<th scope="col">Qtd. Disponível</th>
+							<th scope="col">Qtd.</th>
 							<th scope="col-2 text-align-right">Ações</th>
 						</tr>
 					</thead>
 					<tbody>
-							<tr>
-								<th scope="row"></th>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td>R$</td>
-								<td></td>
-								<td class="col-2 d-flex gap-1 w-auto flex-wrap">
-									<a href="#" class="btn btn-secondary btn-sm" title="Editar produto">
-										<i class="bi bi-pencil"></i>
-									</a>
-									<a href="#" class="btn btn-danger btn-sm" title="Excluir">
-										<i class="bi bi-trash"></i>
-									</a>
-									<a href="#" class="btn btn-primary btn-sm" title="Vender produto">Vender</a>
-								</td>
-							</tr>
+						{% if products %}
+							{% for products in products %}
+								<tr>
+									<th scope="row">{{ products.id }}</th>
+									<td>{{ products.name }}</td>
+									<td>{{ products.description }}</td>
+									<td>{{ products.category.name }}</td>
+									<td>R${{ products.value }}</td>
+									<td>{{ products.amount }}</td>
+									<td class="col-2 d-flex gap-1 w-auto flex-wrap">
+										<a href="{{ path('app_product_edit_view', {id:products.id})}}" class="btn btn-secondary btn-sm" title="Editar produto">
+											<i class="bi bi-pencil"></i>
+										</a>
+										<a href="#" class="btn btn-danger btn-sm" title="Excluir">
+											<i class="bi bi-trash"></i>
+										</a>
+										<a href="#" class="btn btn-primary btn-sm" title="Vender produto">Vender</a>
+									</td>
+								</tr>
+							{% endfor %}
+						{% else %}
 							<tr>
 								<td colspan="7" class="text-center">Nenhum produto encontrado.</td>
 							</tr>
+						{% endif %}
 					</tbody>
 				</table>
 			</div>

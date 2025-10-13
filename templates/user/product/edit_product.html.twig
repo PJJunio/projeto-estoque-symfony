@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<main>
+		<div class="container py-5">
+			<div class="mb-4">
+				<h1>Editar produto</h1>
+			</div>
+
+			<div class="w-50 mt-2">
+				{% include "messages.html.twig" %}
+				<form method="POST" action="{{ path('app_product_edit') }}">
+					<input type="hidden" name="productId" value="{{ product.id }}">
+					<div class="mb-3">
+						<label for="nome" class="form-label">Nome:</label>
+						<input type="text" class="form-control" id="nome" name="nome" value="{{ product.name }}">
+					</div>
+					<div class="mb-3">
+						<label for="descricao" class="form-label">Descrição:</label>
+						<textarea class="form-control" id="descricao" name="descricao" style="resize:none;" rows="5">{{ product.description }}</textarea>
+					</div>
+					<div class="row">
+						<div class="mb-3 col-4">
+							<label for="categoriaId" class="form-label">Categoria:</label>
+							<select class="form-select" id="categoriaId" name="categoriaId">
+								{% for categories in categories %}
+									<option value="{{ categories.id }}" {% if categories.id == product.category.id %} selected {% endif %}>
+										{{ categories.name }}
+									</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="mb-3 col-4">
+							<label for="quantidade" class="form-label">Quantidade:</label>
+							<input type="number" class="form-control" id="quantidade" name="quantidade" value="{{ product.amount }}">
+						</div>
+						<div class="mb-3 col-4">
+							<label for="valor" class="form-label">Valor:</label>
+							<input type="text" class="form-control" id="valor" name="valor" value="{{ product.value }}">
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Editar</button>
+				</form>
+			</div>
+		</div>
+	</main>
+{% endblock %}
