@@ -10,15 +10,26 @@
 			<h1>Bem vindo!</h1>
 			<div class="container py-5">
 				<div class="mb-4 d-flex flex-row justify-content-between">
-					<h2>Produtos</h2>
-					<div>
+					<h2>Produtos
+						{{ showInactive ? 'Inativos' : 'Ativos' }}</h2>
+					<div class="d-flex gap-2">
+						{% if showInactive %}
+							<a href="{{ path('app_index') }}" class="btn btn-success">
+								<i class="bi bi-check-circle"></i>
+								Mostrar Ativos
+							</a>
+						{% else %}
+							<a href="{{ path('app_index', {showInactive: true}) }}" class="btn btn-warning">
+								<i class="bi bi-eye-slash"></i>
+								Mostrar Inativos
+							</a>
+						{% endif %}
 						<a href="{{ path("app_product_new_view") }}" class="btn btn-primary">
 							<i class="bi bi-plus"></i>
 							Novo produto
 						</a>
 					</div>
 				</div>
-
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
@@ -33,27 +44,38 @@
 					</thead>
 					<tbody>
 						{% if products %}
-							{% for products in products %}
+							{% for product in products %}
 								<tr>
-									<th scope="row">{{ products.id }}</th>
-									<td>{{ products.name }}</td>
-									<td>{{ products.description }}</td>
-									<td>{{ products.category.name }}</td>
-									<td>R${{ products.value }}</td>
-									<td>{{ products.amount }}</td>
+									<th scope="row">{{ product.id }}</th>
+									<td>{{ product.name }}</td>
+									<td>{{ product.description }}</td>
+									<td>{{ product.category.name }}</td>
+									<td>R$
+										{{ product.value|number_format(2, ',', '.') }}</td>
+									<td>{{ product.amount }}</td>
 									<td class="col-2 d-flex gap-1 w-auto flex-wrap">
-										<a href="{{ path('app_product_edit_view', {id:products.id})}}" class="btn btn-secondary btn-sm" title="Editar produto">
+										<a href="{{ path('app_product_edit_view', {id:product.id})}}" class="btn btn-secondary btn-sm" title="Editar produto">
 											<i class="bi bi-pencil"></i>
 										</a>
-										<a href="{{ path('app_product_inative', {id:products.id})}}" class="btn btn-danger btn-sm" title="Inativar">
-											<i class="bi bi-x"></i>
-										</a>
+										{% if showInactive %}
+											<a href="{{ path('app_product_active', {id:product.id})}}" class="btn btn-success btn-sm" title="Reativar">
+												<i class="bi bi-check"></i>
+											</a>
+										{% else %}
+											<a href="{{ path('app_product_inative', {id:product.id})}}" class="btn btn-danger btn-sm" title="Inativar">
+												<i class="bi bi-x"></i>
+											</a>
+										{% endif %}
 									</td>
 								</tr>
 							{% endfor %}
 						{% else %}
 							<tr>
-								<td colspan="7" class="text-center">Nenhum produto encontrado.</td>
+								<td colspan="7" class="text-center">
+									Nenhum produto
+									{{ showInactive ? 'inativo' : 'ativo' }}
+									encontrado.
+								</td>
 							</tr>
 						{% endif %}
 					</tbody>

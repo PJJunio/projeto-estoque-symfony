@@ -84,6 +84,22 @@ class ProductRepository extends ServiceEntityRepository
 
         return false;
     }
+    
+    public function activeProduct($id)
+    {
+        $product = $this->findOneBy(['id' => $id]);
+
+        if($product){
+            $product->setStatus(true);
+
+            $this->getEntityManager()->persist($product);
+            $this->getEntityManager()->flush();
+
+            return true;
+        }
+
+        return false;
+    }
 
     //    /**
     //     * @return Product[] Returns an array of Product objects

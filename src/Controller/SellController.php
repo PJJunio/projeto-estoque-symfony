@@ -28,7 +28,7 @@ class SellController extends AbstractController
     #[Route(path: '/sell/new', name: 'app_sell_new_view', methods: ['GET'])]
     public function newSellView()
     {
-        $product = $this->productRepository->findAll();
+        $product = $this->productRepository->findBy(['status' => true]);
 
         return $this->render('/user/sell/new_sell.html.twig', ['products' => $product]);
     }
@@ -78,7 +78,7 @@ class SellController extends AbstractController
     public function editSellView($id)
     {
         $sell = $this->sellRepository->find($id);
-        $product = $this->productRepository->findAll();
+        $product = $this->productRepository->findBy(['status' => true]);
 
         return $this->render('/user/sell/edit_sell.html.twig', ['sell' => $sell, 'products' => $product]);
     }

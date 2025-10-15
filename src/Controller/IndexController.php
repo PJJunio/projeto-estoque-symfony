@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 class IndexController extends AbstractController
@@ -16,8 +17,17 @@ class IndexController extends AbstractController
     }
 
     #[Route(path: '/app', name: 'app_index', methods: 'GET')]
-    public function index()
+    public function index(Request $request)
     {
-        return $this->render('user/index.html.twig', ['products' => $listProducts = $this->productRepository->findBy(['status' => true])]);
+        $showInactive = $request->query->get('showInactive', false);
+
+        $status = $showInactive ? false : true;
+
+        $listProducts = $this->productRepository->findBy(['status' => $status]);
+
+        return $this->render('user/index.html.twig', [
+            'products' => $listProducts,
+            'showInactive' => $showInactive
+        ]);
     }
 }

@@ -106,4 +106,16 @@ class ProductController extends AbstractController
         $this->addFlash('success', 'Produto inativado com sucesso!');
         return $this->redirectToRoute('app_index');
     }
+
+    #[Route(path: '/product/active/{id}', name: 'app_product_active', methods: 'GET')]
+    public function active(int $id)
+    {
+        if (!$this->productRepository->activeProduct($id)) {
+            $this->addFlash('error', 'Produto não encontrado.');
+            return $this->redirectToRoute('app_index');
+        }
+
+        $this->addFlash('success', 'Produto reativado com sucesso!');
+        return $this->redirectToRoute('app_index', ['showInactive' => true]);
+    }
 }
