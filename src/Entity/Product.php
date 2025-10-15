@@ -30,6 +30,9 @@ class Product
     #[ORM\Column]
     private ?int $amount = null;
 
+    #[ORM\Column]
+    private ?bool $status = null;
+
     /**
      * @var Collection<int, Sell>
      */
@@ -39,6 +42,7 @@ class Product
     public function __construct()
     {
         $this->sell = new ArrayCollection();
+        $this->status = true;
     }
 
     public function getId(): ?int
@@ -109,6 +113,17 @@ class Product
     {
         $this->amount = $amount;
 
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): static
+    {
+        $this->status = $status;
         return $this;
     }
 }

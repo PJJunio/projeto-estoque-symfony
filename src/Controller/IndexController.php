@@ -18,6 +18,6 @@ class IndexController extends AbstractController
     #[Route(path: '/app', name: 'app_index', methods: 'GET')]
     public function index()
     {
-        return $this->render('user/index.html.twig', ['products' => $listProducts = $this->productRepository->findAll()]);
+        return $this->render('user/index.html.twig', ['products' => $listProducts = $this->productRepository->findBy(['status' => true])]);
     }
 }

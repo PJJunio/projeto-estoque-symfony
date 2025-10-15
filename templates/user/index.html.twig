@@ -45,10 +45,9 @@
 										<a href="{{ path('app_product_edit_view', {id:products.id})}}" class="btn btn-secondary btn-sm" title="Editar produto">
 											<i class="bi bi-pencil"></i>
 										</a>
-										<a href="#" class="btn btn-danger btn-sm" title="Excluir">
-											<i class="bi bi-trash"></i>
+										<a href="{{ path('app_product_inative', {id:products.id})}}" class="btn btn-danger btn-sm" title="Inativar">
+											<i class="bi bi-x"></i>
 										</a>
-										<a href="#" class="btn btn-primary btn-sm" title="Vender produto">Vender</a>
 									</td>
 								</tr>
 							{% endfor %}

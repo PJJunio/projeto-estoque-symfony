@@ -6,33 +6,46 @@
 			<div class="mb-4">
 				<h1>Editar venda</h1>
 			</div>
-
 			<div class="w-50 mt-2">
-				<form method="POST" action="/sell/edit">
-					{% include "messages.html.twig" %}
-					<input type="hidden" name="id" value="">
+				<form method="POST" action="{{ path('app_sell_edit') }}">
+					<input type="hidden" name="id" value="{{ sell.id }}">
 					<div class="mb-3">
 						<label for="cpf_cliente" class="form-label">CPF do Cliente:</label>
-						<input type="text" class="form-control" id="cpf_cliente" name="cpf_cliente" value="">
+						<input type="text" class="form-control" id="cpf_cliente" name="cpf_cliente" value="{{ sell.costumer }}">
+					</div>
+					<div class="mb-3">
+						<label for="cpf_cliente" class="form-label">Data da venda:</label>
+						<input type="date" class="form-control" id="data_venda" name="data_venda" value="{{ sell.date|date('Y-m-d') }}">
 					</div>
 
 					<div class="row">
 						<div class="mb-3 col-4">
 							<label for="produto" class="form-label">Produto:</label>
 							<select class="form-select" id="produto" name="produto">
-								<option selected disabled>Selecione...</option>
+								{% for products in products %}
+									<option value="{{ products.id }}" {% if products.id == sell.product.id %} selected {% endif %}>
+										{{ products.name }}
+									</option>
+								{% endfor %}
 							</select>
 
 						</div>
 						<div class="mb-3 col-4">
 							<label for="status" class="form-label">Status:</label>
 							<select class="form-select" id="status" name="status">
-								<option selected disabled>Selecione...</option>
+								{% if sell.status == true %}
+									<option value="true" selected>Ativo</option>
+									<option value="false">Inativo</option>
+								{% else %}
+									<option value="true">Ativo</option>
+									<option value="false" selected>Finalizada</option>
+								{% endif %}
+
 							</select>
 						</div>
 						<div class="mb-3 col-4">
 							<label for="quantidade" class="form-label">Quantidade:</label>
-							<input type="number" class="form-control" id="quantidade" name="quantidade" value="">
+							<input type="number" class="form-control" id="quantidade" name="quantidade" value="{{ sell.amount }}">
 						</div>
 					</div>
 

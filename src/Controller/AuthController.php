@@ -42,24 +42,26 @@ class AuthController extends AbstractController
     #[Route(path: '/register', name: 'app_register', methods: 'POST')]
     public function createUser(Request $request, UserRepository $userRepository)
     {
-        $data = $request->toArray();
-
-        $name = $data['name'] ?? null;
-        $email = $data['email'] ?? null;
-        $password = $data['password'] ?? null;
+        $name = $request->request->get("name");
+        $email = $request->request->get("email");
+        $password = $request->request->get("password");
 
         if (!$name || !$email || !$password) {
-            return $this->json(['error' => 'Dados inválidos ou faltando'], Response::HTTP_BAD_REQUEST);
+            $this->addFlash('danger', 'Preencha todos os campos!');
+            return $this->redirectToRoute('app_register_view');
         }
 
         if (strlen($password) < 6) {
-            return $this->json(['error' => 'A senha deve ter no mínimo 6 digitos!'], Response::HTTP_BAD_REQUEST);
+            $this->addFlash('danger', 'A senha deve ter no mínimo 6 dígitos!');
+            return $this->redirectToRoute('app_register_view');
         }
 
         if ($userRepository->createUser($name, $email, $password)) {
-            return $this->json(['messae' => 'Usuário criado com sucesso!'], Response::HTTP_OK);
+            $this->addFlash('success', 'Usuário criado com sucesso!');
+            return $this->redirectToRoute('app_login');
         }
 
-        return $this->json(['error' => 'Ocorreu um eror ao criar o usuário!'], Response::HTTP_BAD_REQUEST);
+        $this->addFlash('danger', 'Erro ao criar o usuário!');
+            return $this->redirectToRoute('app_register_view');
     }
 }

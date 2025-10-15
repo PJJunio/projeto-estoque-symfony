@@ -39,6 +39,11 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('app_product_new_view');
         }
 
+        if ($productAmount < 0) {
+            $this->addFlash('danger', 'O valor não pode ser menor que 0!');
+            return $this->redirectToRoute('app_product_edit');
+        }
+
         $this->productRepository->createProduct(
             $productName,
             $productDescription,
@@ -76,12 +81,29 @@ class ProductController extends AbstractController
         $category = $this->categoryRepository->find($productCategory);
 
         if (!$category) {
-            $this->addFlash('error', 'Categoria não encontrada!');
+            $this->addFlash('danger', 'Categoria não encontrada!');
+            return $this->redirectToRoute('app_product_edit');
+        }
+
+        if ($productAmount < 0) {
+            $this->addFlash('danger', 'O valor não pode ser menor que 0!');
             return $this->redirectToRoute('app_product_edit');
         }
 
         $this->productRepository->editProduct($productId, $productName, $productDescription, $category, $productAmount, $productValue);
         $this->addFlash('success', 'Produto editado com sucesso!');
         return $this->redirectToRoute('app_product_edit');
+    }
+
+    #[Route(path: '/product/inative/{id}', name: 'app_product_inative', methods: ['GET'])]
+    public function inativeProduct($id)
+    {
+        if (!$this->productRepository->inativeProduct($id)) {
+            $this->addFlash('danger', 'Erro ao inativar o produto!');
+            return $this->redirectToRoute('app_index');
+        }
+
+        $this->addFlash('success', 'Produto inativado com sucesso!');
+        return $this->redirectToRoute('app_index');
     }
 }

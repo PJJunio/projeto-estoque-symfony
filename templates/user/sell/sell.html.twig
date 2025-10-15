@@ -4,9 +4,9 @@
 	<main>
 		<div class="container py-5">
 			<div class="container py-5">
+			{% include "messages.html.twig" %}
 				<div class="mb-4 d-flex flex-row justify-content-between">
 					<h1>Vendas</h1>
-					{% include "messages.html.twig" %}
 					<div>
 						<a href="{{ path('app_sell_new_view') }}" class="btn btn-primary">
 							<i class="bi bi-plus"></i>Nova venda</a>
@@ -17,6 +17,7 @@
 					<thead>
 						<tr>
 							<th scope="col">Id</th>
+							<th scope="col">Produto</th>
 							<th scope="col">Data da venda</th>
 							<th scope="col">Cliente</th>
 							<th scope="col">Qtd.</th>
@@ -30,6 +31,7 @@
 							{% for sells in sells %}
 								<tr>
 									<th scope="row">{{ sells.id }}</th>
+									<td>{{ sells.product.name }}</td>
 									<td>{{ sells.date|date('d-m-Y')}}</td>
 									<td>{{ sells.costumer}}</td>
 									<td>{{ sells.amount}}</td>
@@ -37,12 +39,12 @@
 									{% if sells.status %}
 										<td>Ativo</td>
 									{% else %}
-										<td>Inativo</td>
+										<td>Finalizada</td>
 									{% endif %}
 
 									<td class="col-2 d-flex gap-1 w-auto flex-wrap">
 										<a href='{{ path('app_sell_edit_view', {id:sells.id})}}' class="btn btn-primary btn-sm" title="Editar">Editar</a>
-										<a href='sell' class="btn btn-primary btn-sm" title="Finalizar">
+										<a href='{{ path('app_sell_finish', {id:sells.id})}}' class="btn btn-primary btn-sm" title="Finalizar">
 											<i class="bi bi-check"></i>
 										</a>
 									</td>

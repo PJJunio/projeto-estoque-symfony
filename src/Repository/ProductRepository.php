@@ -69,12 +69,14 @@ class ProductRepository extends ServiceEntityRepository
         return false;
     }
 
-    public function deleteProduct($id)
+    public function inativeProduct($id)
     {
         $product = $this->findOneBy(['id' => $id]);
 
         if($product){
-            $this->getEntityManager()->remove($product);
+            $product->setStatus(false);
+
+            $this->getEntityManager()->persist($product);
             $this->getEntityManager()->flush();
 
             return true;

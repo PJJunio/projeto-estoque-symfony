@@ -6,6 +6,7 @@
 {% block body %}
 	<div class="d-flex align-items-center py-4 bg-body-tertiary">
 		<main class="form-signin m-auto">
+		{% include "messages.html.twig" %}
 			<form method="post">
 				{% if error %}
 					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -31,7 +32,7 @@
 					</button>
 				</div>
 
-				<p class="mt-2">Não tem uma conta?<a href="#" style="text-decoration: none">
+				<p class="mt-2">Não tem uma conta?<a href="{{ path("app_register_view") }}" style="text-decoration: none">
 						Criar uma conta!</a>
 				</p>
 				<p class="mt-5 mb-3 text-body-secondary text-center">&copy; MS Code 2025</p>
