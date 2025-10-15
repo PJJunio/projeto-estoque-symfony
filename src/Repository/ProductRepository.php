@@ -58,7 +58,7 @@ class ProductRepository extends ServiceEntityRepository
             $product->setDescription($description);
             $product->setCategory($category);
             $product->setAmount($amount);
-            $product->setValue($value);
+            $product->setValue($this->convertBrazilianCurrency($value));
 
             $this->getEntityManager()->persist($product);
             $this->getEntityManager()->flush();

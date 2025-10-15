@@ -20,7 +20,7 @@
 			<div class="container">
 				<header class="d-flex flex-wrap justify-content-center align-items-center py-3">
 					<a href="{{ path('app_index') }}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-						<img class="me-2" src="/assets/images/logotipo.svg" width="53">
+						<img class="me-2" src="/images/logotipo.svg" width="53">
 						<span class="fs-4">MS Code - Estoque</span>
 					</a>
 					<ul class="nav nav-pills d-flex align-items-center">
@@ -28,7 +28,7 @@
 							<a href="{{ path('app_index') }}" class="nav-link active" aria-current="page">Início</a>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<a class="nav-link dropdown-toggle" href="{{ path('app_sell_view') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								Vendas
 							</a>
 							<ul class="dropdown-menu">
@@ -36,7 +36,7 @@
 									<a class="dropdown-item" href="/sell">Vendas realizadas</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="/sell/new">Nova venda</a>
+									<a class="dropdown-item" href="{{ path('app_sell_new_view') }}">Nova venda</a>
 								</li>
 							</ul>
 						</li>

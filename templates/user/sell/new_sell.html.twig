@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<main>
+		<div class="container py-5">
+			<div class="mb-4">
+				<h1>Nova venda</h1>
+			</div>
+
+			<div class="w-50 mt-2">
+				<form method="POST" action="{{ path('app_sell')}}">
+					{% include "messages.html.twig" %}
+					<div class="mb-3">
+						<label for="cpf_cliente" class="form-label">CPF do Cliente:</label>
+						<input type="text" class="form-control" id="cpf_cliente" name="cpf_cliente" value="">
+					</div>
+                    <div class="mb-3">
+						<label for="cpf_cliente" class="form-label">Data da venda:</label>
+						<input type="date" class="form-control" id="data_venda" name="data_venda" value="">
+					</div>
+
+					<div class="row">
+						<div class="mb-3 col-4">
+							<label for="produto" class="form-label">Produto:</label>
+							<select class="form-select" id="produto" name="produto">
+								<option selected disabled>Selecione...</option>
+                                {% for products in products %}
+                                    <option value="{{ products.id }}">{{ products.name }}</option>
+                                {% endfor %}
+							</select>
+
+						</div>
+						<div class="mb-3 col-4">
+							<label for="quantidade" class="form-label">Quantidade:</label>
+							<input type="number" class="form-control" id="quantidade" name="quantidade" value="">
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</form>
+			</div>
+		</div>
+	</main>
+{% endblock %}
