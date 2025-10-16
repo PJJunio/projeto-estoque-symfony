@@ -15,6 +15,11 @@ class IndexController extends AbstractController
         private CategoryRepository $categoryRepository
     ) {
     }
+    #[Route(path: '/', name: 'app_homepage', methods: 'GET')]
+    public function homepage()
+    {
+        return $this->redirectToRoute("app_index");
+    }
 
     #[Route(path: '/app', name: 'app_index', methods: 'GET')]
     public function index(Request $request)

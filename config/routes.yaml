@@ -6,4 +6,4 @@ controllers:
 
 homepage:
     path: /
-    controller: App\Controller\AuthController::login
+    controller: App\Controller\IndexController::homepage
