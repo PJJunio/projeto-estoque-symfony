@@ -17,7 +17,7 @@ class SellController extends AbstractController
     ) {
     }
 
-    #[Route(path: '/sell', name: 'app_sell_view', methods: ['GET'])]
+    #[Route(path: '/app/sell', name: 'app_sell_view', methods: ['GET'])]
     public function sellView()
     {
         $sells = $this->sellRepository->findAll();
@@ -25,7 +25,7 @@ class SellController extends AbstractController
         return $this->render('/user/sell/sell.html.twig', ["sells" => $sells]);
     }
 
-    #[Route(path: '/sell/new', name: 'app_sell_new_view', methods: ['GET'])]
+    #[Route(path: '/app/sell/new', name: 'app_sell_new_view', methods: ['GET'])]
     public function newSellView()
     {
         $product = $this->productRepository->findBy(['status' => true]);
@@ -33,7 +33,7 @@ class SellController extends AbstractController
         return $this->render('/user/sell/new_sell.html.twig', ['products' => $product]);
     }
 
-    #[Route(path: '/sell/new', name: 'app_sell', methods: ['POST'])]
+    #[Route(path: '/app/sell/new', name: 'app_sell', methods: ['POST'])]
     public function newSell(Request $request)
     {
         $cpfSubmetido = $request->request->get('cpf_cliente');
@@ -74,7 +74,7 @@ class SellController extends AbstractController
         return $this->redirectToRoute('app_sell_new_view');
     }
 
-    #[Route(path: '/sell/edit/{id}', name: 'app_sell_edit_view', methods: ['GET'])]
+    #[Route(path: '/app/sell/edit/{id}', name: 'app_sell_edit_view', methods: ['GET'])]
     public function editSellView($id)
     {
         $sell = $this->sellRepository->find($id);
@@ -83,7 +83,7 @@ class SellController extends AbstractController
         return $this->render('/user/sell/edit_sell.html.twig', ['sell' => $sell, 'products' => $product]);
     }
 
-    #[Route(path: '/sell/edit', name: 'app_sell_edit', methods: ['POST'])]
+    #[Route(path: '/app/sell/edit', name: 'app_sell_edit', methods: ['POST'])]
     public function editSell(Request $request)
     {
         $id = $request->request->get('id');
@@ -113,7 +113,7 @@ class SellController extends AbstractController
         return $this->redirectToRoute('app_sell_view');
     }
 
-    #[Route(path: '/sell/finish/{id}', name: 'app_sell_finish', methods: ['GET'])]
+    #[Route(path: '/app/sell/finish/{id}', name: 'app_sell_finish', methods: ['GET'])]
     public function finishSell($id)
     {
         if (!$this->sellRepository->alterStatus($id)) {

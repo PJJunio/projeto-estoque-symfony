@@ -17,13 +17,13 @@ class ProductController extends AbstractController
     ) {
     }
 
-    #[Route(path: '/product/new', name: 'app_product_new_view', methods: 'GET')]
+    #[Route(path: '/app/product/new', name: 'app_product_new_view', methods: 'GET')]
     public function newProductView()
     {
         return $this->render('user/product/new_product.html.twig', ['categories' => $this->categoryRepository->findAll()]);
     }
 
-    #[Route(path: '/product/new', name: 'app_product_new', methods: 'POST')]
+    #[Route(path: '/app/product/new', name: 'app_product_new', methods: 'POST')]
     public function newProduct(Request $request)
     {
         $productName = $request->request->get('nome');
@@ -56,7 +56,7 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('app_product_new_view');
     }
 
-    #[Route(path: '/product/edit/{id}', name: 'app_product_edit_view', methods: 'GET')]
+    #[Route(path: '/app/product/edit/{id}', name: 'app_product_edit_view', methods: 'GET')]
     public function edidProductView($id)
     {
         $product = $this->productRepository->find($id);
@@ -68,7 +68,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/product/edit', name: 'app_product_edit', methods: 'POST')]
+    #[Route(path: '/app/product/edit', name: 'app_product_edit', methods: 'POST')]
     public function editProduct(Request $request)
     {
         $productId = $request->request->get('productId');
@@ -95,7 +95,7 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('app_product_edit');
     }
 
-    #[Route(path: '/product/inative/{id}', name: 'app_product_inative', methods: ['GET'])]
+    #[Route(path: '/app/product/inative/{id}', name: 'app_product_inative', methods: ['GET'])]
     public function inativeProduct($id)
     {
         if (!$this->productRepository->inativeProduct($id)) {
@@ -107,7 +107,7 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('app_index');
     }
 
-    #[Route(path: '/product/active/{id}', name: 'app_product_active', methods: 'GET')]
+    #[Route(path: '/app/product/active/{id}', name: 'app_product_active', methods: 'GET')]
     public function active(int $id)
     {
         if (!$this->productRepository->activeProduct($id)) {
